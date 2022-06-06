@@ -23,23 +23,27 @@ public class Game {
 
     public int round(String playerName1, String playerName2) {
         int result = 0;
+        int player1 = -1;
+        int player2 = -1;
         for (Player player : players) {
-            if (player.getName().equalsIgnoreCase(playerName1) && player.getName().equalsIgnoreCase(playerName2)) {
-                int player1 = player.getStrength(playerName1);  //???
-                int player2 = player.getStrength(playerName2);  //???
-
-                if (player1 > player2) {
-                    result = 1;
-                }
-                if (player1 == player2) {
-                    result = 0;
-                }
-                if (player1 < player2) {
-                    result = 2;
-                }
-            } else {
-                throw new NotRegisteredException("Пользователь не зарегестрирован");
+            if (player.getName().equalsIgnoreCase(playerName1)) {
+                player1 = player.getStrength();
             }
+            if (player.getName().equalsIgnoreCase(playerName2)) {
+                player2 = player.getStrength();
+            }
+        }
+        if (player1 == -1 || player2 == -1) {
+            throw new NotRegisteredException("Пользователь не зарегестрирован");
+        }
+        if (player1 > player2) {
+            result = 1;
+        }
+        if (player1 == player2) {
+            result = 0;
+        }
+        if (player1 < player2) {
+            result = 2;
         }
         return result;
     }
